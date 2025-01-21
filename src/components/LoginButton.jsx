@@ -48,10 +48,8 @@ const LoginButton = () => {
     onError: () => {
       console.log('Login Failed');
     },
+    flow: 'implicit', // Explicitly set to implicit flow
     scope: 'https://www.googleapis.com/auth/calendar.readonly email profile openid',
-    authorizationParams: {
-      response_type: 'token', // Request access_token
-    },
   });
 
   return (

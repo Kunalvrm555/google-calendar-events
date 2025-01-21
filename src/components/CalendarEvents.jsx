@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCalendarEvents } from '../redux/calendarSlice';
 import EventTable from './EventTable';
 import Filter from './Filter';
-import { Typography, CircularProgress, Box } from '@mui/material';
+import { Typography, CircularProgress, Box, Button } from '@mui/material';
 
 const CalendarEvents = () => {
   const dispatch = useDispatch();
@@ -34,6 +34,11 @@ const CalendarEvents = () => {
     setFilteredEvents(filtered);
   };
 
+  const handleRefetch = () => {
+    console.log('Refetch button clicked. Fetching latest events.');
+    dispatch(getCalendarEvents(accessToken));
+  };
+
   let content;
 
   if (status === 'loading') {
@@ -45,6 +50,11 @@ const CalendarEvents = () => {
   } else if (status === 'succeeded') {
     content = (
       <>
+        <Box display="flex" justifyContent="flex-end" mb={2}>
+          <Button variant="contained" onClick={handleRefetch}>
+            Refetch Events
+          </Button>
+        </Box>
         <Filter onFilter={handleFilter} />
         <EventTable events={filteredEvents} />
       </>
