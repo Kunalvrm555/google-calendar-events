@@ -6,9 +6,7 @@ export const getCalendarEvents = createAsyncThunk(
   'calendar/getCalendarEvents',
   async (accessToken, { rejectWithValue }) => {
     try {
-      console.log('Fetching calendar events with access token:', accessToken);
       const events = await fetchCalendarEvents(accessToken);
-      console.log('Calendar events fetched:', events);
       return events;
     } catch (error) {
       console.error('Error fetching calendar events:', error);
@@ -28,11 +26,9 @@ const calendarSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCalendarEvents.pending, (state) => {
-        console.log('Fetching calendar events...');
         state.status = 'loading';
       })
       .addCase(getCalendarEvents.fulfilled, (state, action) => {
-        console.log('Calendar events successfully fetched.');
         state.status = 'succeeded';
         state.events = action.payload;
       })

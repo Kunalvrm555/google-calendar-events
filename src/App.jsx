@@ -12,10 +12,8 @@ const App = () => {
   const { isSignedIn, user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    console.log('Handle sign-out triggered.');
     googleLogout();
     dispatch(logout());
-    console.log('User logged out.');
   };
 
   return (

@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
+import DateTimeDisplay from './DateTimeDisplay'; // Import the new component
 
 const EventTable = ({ events }) => {
   console.log('Rendering EventTable with events:', events.length);
@@ -24,22 +25,31 @@ const EventTable = ({ events }) => {
     <TableContainer component={Paper} sx={{ marginTop: 4 }}>
       <Table>
         <TableHead>
-          <TableRow>
-            <TableCell>Event Title</TableCell>
-            <TableCell>Start Time</TableCell>
-            <TableCell>End Time</TableCell>
-            <TableCell>Location</TableCell>
+          <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
+            <TableCell><strong>Event Title</strong></TableCell>
+            <TableCell><strong>Start Time</strong></TableCell>
+            <TableCell><strong>End Time</strong></TableCell>
+            <TableCell><strong>Location</strong></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {sortedEvents.map((event) => (
-            <TableRow key={event.id}>
+            <TableRow
+              key={event.id}
+              hover
+              sx={{
+                cursor: 'pointer',
+                '&:nth-of-type(even)': {
+                  backgroundColor: '#fafafa',
+                },
+              }}
+            >
               <TableCell>{event.summary || 'No Title'}</TableCell>
               <TableCell>
-                {new Date(event.start.dateTime || event.start.date).toLocaleString()}
+                <DateTimeDisplay dateTime={event.start.dateTime || event.start.date} />
               </TableCell>
               <TableCell>
-                {new Date(event.end.dateTime || event.end.date).toLocaleString()}
+                <DateTimeDisplay dateTime={event.end.dateTime || event.end.date} />
               </TableCell>
               <TableCell>{event.location || 'N/A'}</TableCell>
             </TableRow>

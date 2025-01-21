@@ -39,14 +39,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      console.log('Setting user data:', action.payload);
       state.isSignedIn = true;
       state.user = action.payload.user;
       state.accessToken = action.payload.accessToken;
       saveState(state); // Save to localStorage
     },
     logout: (state) => {
-      console.log('Logging out user.');
       state.isSignedIn = false;
       state.user = {};
       state.accessToken = null;

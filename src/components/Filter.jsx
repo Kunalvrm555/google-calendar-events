@@ -9,14 +9,12 @@ const Filter = ({ onFilter }) => {
   const [endDate, setEndDate] = useState(null);
 
   const handleFilterClick = () => {
-    console.log('Filter applied with Start Date:', startDate, 'End Date:', endDate);
     if (startDate && endDate) {
       onFilter(startDate, endDate);
     }
   };
 
   const handleReset = () => {
-    console.log('Filter reset.');
     setStartDate(null);
     setEndDate(null);
     onFilter(new Date('1970-01-01'), new Date());
@@ -29,7 +27,6 @@ const Filter = ({ onFilter }) => {
           label="Start Date"
           value={startDate}
           onChange={(newValue) => {
-            console.log('Start Date selected:', newValue);
             setStartDate(newValue);
           }}
           renderInput={(params) => <TextField {...params} />}
@@ -38,7 +35,6 @@ const Filter = ({ onFilter }) => {
           label="End Date"
           value={endDate}
           onChange={(newValue) => {
-            console.log('End Date selected:', newValue);
             setEndDate(newValue);
           }}
           renderInput={(params) => <TextField {...params} />}

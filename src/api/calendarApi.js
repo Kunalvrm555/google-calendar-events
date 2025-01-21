@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export const fetchCalendarEvents = async (accessToken) => {
   try {
-    console.log('Sending request to fetch calendar events...');
     const response = await axios.get(
       'https://www.googleapis.com/calendar/v3/calendars/primary/events',
       {
@@ -14,11 +13,10 @@ export const fetchCalendarEvents = async (accessToken) => {
           singleEvents: true,
           orderBy: 'startTime',
           timeMin: new Date().toISOString(),
-          maxResults: 2500, // Adjust as needed
+          maxResults: 2500,
         },
       }
     );
-    console.log('Received response for calendar events.');
     return response.data.items;
   } catch (error) {
     console.error('Error fetching calendar events:', error);
