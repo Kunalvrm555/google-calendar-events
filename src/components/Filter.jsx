@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import toast from 'react-hot-toast'; // Import toast
 
 const Filter = ({ onFilter }) => {
   const [startDate, setStartDate] = useState(null);
@@ -18,6 +19,7 @@ const Filter = ({ onFilter }) => {
     setStartDate(null);
     setEndDate(null);
     onFilter(new Date('1970-01-01'), new Date());
+    toast.success('Filters reset.');
   };
 
   return (
@@ -43,10 +45,33 @@ const Filter = ({ onFilter }) => {
           variant="contained"
           onClick={handleFilterClick}
           disabled={!startDate || !endDate}
+          sx={{
+            padding: '0.6rem 1.2rem',
+            fontSize: '1rem',
+            borderRadius: '8px',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+            transition: 'transform 0.2s',
+            '&:hover': {
+              transform: 'scale(1.05)',
+            },
+          }}
         >
           Apply Filter
         </Button>
-        <Button variant="outlined" onClick={handleReset}>
+        <Button
+          variant="outlined"
+          onClick={handleReset}
+          sx={{
+            padding: '0.6rem 1.2rem',
+            fontSize: '1rem',
+            borderRadius: '8px',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+            transition: 'transform 0.2s',
+            '&:hover': {
+              transform: 'scale(1.05)',
+            },
+          }}
+        >
           Reset
         </Button>
       </Box>

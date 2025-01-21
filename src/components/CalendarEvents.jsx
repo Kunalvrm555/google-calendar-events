@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCalendarEvents } from '../redux/calendarSlice';
 import EventTable from './EventTable';
 import Filter from './Filter';
-import { Typography, CircularProgress, Box, Button } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import toast from 'react-hot-toast'; // Import toast
+import toast from 'react-hot-toast';
+import { useTheme } from '@mui/material/styles';
 
 const CalendarEvents = () => {
   const dispatch = useDispatch();
@@ -14,31 +15,28 @@ const CalendarEvents = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const [filteredEvents, setFilteredEvents] = useState([]);
 
+  const theme = useTheme(); // Access theme
+
   useEffect(() => {
     if (status === 'idle' && accessToken) {
-      console.log('Dispatching getCalendarEvents with accessToken:', accessToken);
       dispatch(getCalendarEvents(accessToken));
     }
   }, [status, dispatch, accessToken]);
 
   useEffect(() => {
-    console.log('Updating filtered events.');
     setFilteredEvents(events);
   }, [events]);
 
   const handleFilter = (startDate, endDate) => {
-    console.log('Applying filter:', startDate, endDate);
     const filtered = events.filter((event) => {
       const eventDate = new Date(event.start.dateTime || event.start.date);
       return eventDate >= startDate && eventDate <= endDate;
     });
-    console.log('Filtered events count:', filtered.length);
     setFilteredEvents(filtered);
     toast.success(`${filtered.length} event(s) found.`);
   };
 
   const handleRefetch = () => {
-    console.log('Refetch button clicked. Fetching latest events.');
     dispatch(getCalendarEvents(accessToken))
       .unwrap()
       .then(() => {
@@ -51,13 +49,13 @@ const CalendarEvents = () => {
 
   let content;
 
-  if (status === 'loading') {
+  if (status === 'failed') {
     content = (
-      <Box display="flex" justifyContent="center" mt={4}>
-        <CircularProgress />
-      </Box>
+      <Typography variant="h6" color="error">
+        {error}
+      </Typography>
     );
-  } else if (status === 'succeeded') {
+  } else {
     content = (
       <>
         <Box display="flex" justifyContent="flex-end" mb={2}>
@@ -65,7 +63,7 @@ const CalendarEvents = () => {
             variant="contained"
             startIcon={<RefreshIcon />}
             onClick={handleRefetch}
-            color="info"
+            color={theme.palette.mode === 'dark' ? 'secondary' : 'primary'}
             sx={{
               padding: '0.6rem 1.5rem',
               fontSize: '1rem',
@@ -75,20 +73,15 @@ const CalendarEvents = () => {
               '&:hover': {
                 transform: 'scale(1.05)',
               },
+              backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.primary.main,
             }}
           >
             Refetch Events
           </Button>
         </Box>
         <Filter onFilter={handleFilter} />
-        <EventTable events={filteredEvents} />
+        <EventTable events={filteredEvents} loading={status === 'loading'} />
       </>
-    );
-  } else if (status === 'failed') {
-    content = (
-      <Typography variant="h6" color="error">
-        {error}
-      </Typography>
     );
   }
 
