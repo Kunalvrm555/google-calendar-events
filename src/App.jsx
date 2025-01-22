@@ -45,7 +45,7 @@ const App = () => {
             dark: darkMode ? '#1565c0' : '#115293',
           },
           secondary: {
-            main: darkMode ? '#f48fb1' : '#dc004e',
+            main: darkMode ? '#006400' : '#dc004e',
             dark: darkMode ? '#c2185b' : '#a30043',
           },
           background: {
@@ -65,7 +65,10 @@ const App = () => {
 
   const handleThemeChange = () => {
     setDarkMode((prev) => !prev);
-    toast(`Switched to ${darkMode ? 'light' : 'dark'} mode.`);
+    const mode = darkMode ? 'light' : 'dark';
+    toast.success(`Switched to ${mode} mode.`, {
+      icon: mode === 'dark' ? <Brightness4 /> : <Brightness7 />,
+    });
   };
 
   return (
