@@ -1,4 +1,3 @@
-// src/components/DateTimeDisplay.jsx
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';

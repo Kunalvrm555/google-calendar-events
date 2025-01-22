@@ -1,4 +1,3 @@
-// src/components/LoginButton.jsx
 import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';

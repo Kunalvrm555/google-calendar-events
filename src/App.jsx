@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from './redux/authSlice';
@@ -42,7 +41,7 @@ const App = () => {
         palette: {
           mode: darkMode ? 'dark' : 'light',
           primary: {
-            main: darkMode ? '#1e88e5' : '#1976d2', // Example primary colors
+            main: darkMode ? '#1e88e5' : '#1976d2',
             dark: darkMode ? '#1565c0' : '#115293',
           },
           secondary: {

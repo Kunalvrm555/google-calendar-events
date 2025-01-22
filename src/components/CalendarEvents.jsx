@@ -1,4 +1,3 @@
-// src/components/CalendarEvents.jsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCalendarEvents } from '../redux/calendarSlice';
@@ -15,7 +14,7 @@ const CalendarEvents = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const [filteredEvents, setFilteredEvents] = useState([]);
 
-  const theme = useTheme(); // Access theme
+  const theme = useTheme();
 
   useEffect(() => {
     if (status === 'idle' && accessToken) {

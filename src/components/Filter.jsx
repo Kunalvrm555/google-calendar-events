@@ -1,9 +1,8 @@
-// src/components/Filter.jsx
 import React, { useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import toast from 'react-hot-toast'; // Import toast
+import toast from 'react-hot-toast';
 
 const Filter = ({ onFilter }) => {
   const [startDate, setStartDate] = useState(null);

@@ -1,4 +1,3 @@
-// src/components/EventTable.jsx
 import React from 'react';
 import {
   Table,

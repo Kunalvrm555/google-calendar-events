@@ -1,4 +1,3 @@
-// src/redux/calendarSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchCalendarEvents } from '../api/calendarApi';
 

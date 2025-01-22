@@ -1,4 +1,3 @@
-// src/api/calendarApi.js
 import axios from 'axios';
 
 export const fetchCalendarEvents = async (accessToken) => {
