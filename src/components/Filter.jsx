@@ -1,10 +1,11 @@
+// src/components/Filter.jsx
 import React, { useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
-import { LocalizationProvider, DatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import toast from 'react-hot-toast';
 
-const Filter = ({ onFilter }) => {
+const Filter = ({ onFilter, resetFilter }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -17,7 +18,7 @@ const Filter = ({ onFilter }) => {
   const handleReset = () => {
     setStartDate(null);
     setEndDate(null);
-    onFilter(new Date('1970-01-01'), new Date());
+    resetFilter(); 
     toast.success('Filters reset.');
   };
 

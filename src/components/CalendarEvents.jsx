@@ -35,6 +35,10 @@ const CalendarEvents = () => {
     toast.success(`${filtered.length} event(s) found.`);
   };
 
+  const resetFilter = () => {
+    setFilteredEvents(events);
+  }
+
   const handleRefetch = () => {
     dispatch(getCalendarEvents(accessToken))
       .unwrap()
@@ -78,7 +82,7 @@ const CalendarEvents = () => {
             Refetch Events
           </Button>
         </Box>
-        <Filter onFilter={handleFilter} />
+        <Filter onFilter={handleFilter} resetFilter={resetFilter} />
         <EventTable events={filteredEvents} loading={status === 'loading'} />
       </>
     );
