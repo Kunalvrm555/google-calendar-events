@@ -85,7 +85,7 @@ const App = () => {
       >
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            WhiteCarrot.io - Google Calendar App
+            Google Calendar Events
           </Typography>
           {isSignedIn && (
             <Box display="flex" alignItems="center">
