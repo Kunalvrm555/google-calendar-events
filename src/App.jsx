@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from './redux/authSlice';
@@ -15,14 +16,15 @@ import {
 import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 import { Brightness4, Brightness7, ExitToApp } from '@mui/icons-material';
 import { googleLogout } from '@react-oauth/google';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+import GoogleCalendarIcon from './assets/google_calendar.svg';
 
 const App = () => {
   const dispatch = useDispatch();
   const { isSignedIn, user } = useSelector((state) => state.auth);
   const [darkMode, setDarkMode] = useState(false);
 
-  // Load theme preference from localStorage
+  // Initialize theme based on localStorage
   useEffect(() => {
     const storedTheme = localStorage.getItem('preferredTheme');
     if (storedTheme === 'dark') {
@@ -30,11 +32,12 @@ const App = () => {
     }
   }, []);
 
-  // Update localStorage when theme changes
+  // Update localStorage whenever darkMode changes
   useEffect(() => {
     localStorage.setItem('preferredTheme', darkMode ? 'dark' : 'light');
   }, [darkMode]);
 
+  // Create MUI theme based on darkMode state
   const theme = useMemo(
     () =>
       createTheme({
@@ -42,7 +45,7 @@ const App = () => {
           mode: darkMode ? 'dark' : 'light',
           primary: {
             main: darkMode ? '#1e88e5' : '#1976d2',
-            dark: darkMode ? '#1565c0' : '#115293',
+            dark: darkMode ? '#006400' : '#115293',
           },
           secondary: {
             main: darkMode ? '#006400' : '#dc004e',
@@ -57,12 +60,16 @@ const App = () => {
     [darkMode]
   );
 
+  // Handle user logout
   const handleLogout = () => {
     googleLogout();
     dispatch(logout());
-    toast.success('Successfully logged out.');
+    toast.success('Successfully logged out.', {
+      icon: '👋',
+    });
   };
 
+  // Handle theme toggle
   const handleThemeChange = () => {
     setDarkMode((prev) => !prev);
     const mode = darkMode ? 'light' : 'dark';
@@ -84,6 +91,27 @@ const App = () => {
         }}
       >
         <Toolbar>
+          <IconButton
+            onClick={() => toast('Clicked!')}
+            sx={{
+              marginRight: 2,
+              color: theme.palette.background.default,
+              backgroundColor: '#ffffff',
+              borderRadius: '50%',
+              width: 48,
+              height: 48,
+              '&:hover': {
+                backgroundColor: '#e0e0e0',
+              },
+            }}
+          >
+            <Box
+              component="img"
+              src={GoogleCalendarIcon}
+              alt="Google Calendar"
+              sx={{ height: 32, width: 32 }}
+            />
+          </IconButton>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Google Calendar Events
           </Typography>
@@ -115,6 +143,17 @@ const App = () => {
           </Box>
         )}
       </Container>
+
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          style: {
+            background: darkMode ? '#000' : '#fff',
+            color: darkMode ? '#fff' : '#000',  
+          },
+        }}
+      />
     </ThemeProvider>
   );
 };
