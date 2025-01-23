@@ -34,7 +34,9 @@ Welcome to the **Google Calendar Events**! This web application allows users to 
 
 ## Demo
 
-![Screenshot of the Application](https://via.placeholder.com/800x400)
+https://github.com/user-attachments/assets/a0e62a28-a5ad-453c-8ec7-c6d5e2bc86a9
+
+
 
 ## Technologies Used
 
