@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from './redux/authSlice';
