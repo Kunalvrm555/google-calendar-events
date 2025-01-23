@@ -15,11 +15,11 @@ import { useTheme } from '@mui/material/styles';
 const EventTable = ({ events, loading }) => {
   const theme = useTheme();
 
-  // Sort events by start date descending
+  // Sort events by start date ascending
   const sortedEvents = [...events].sort((a, b) => {
     const dateA = new Date(a.start.dateTime || a.start.date);
     const dateB = new Date(b.start.dateTime || b.start.date);
-    return dateB - dateA;
+    return dateA - dateB;
   });
 
   // Define the number of skeleton rows
